@@ -1,0 +1,41 @@
+svn log -q http://url.of.svn.repo | awk -F '|' '/^r/ {sub("^ ", "", $2); sub(" $", "", $2); print $2" = "$2" <"$2">"}' | sort -u
+svn log -q | awk -F '|' '/^r/ {sub("^ ", "", $2); sub(" $", "", $2); print $2" = "$2" <"$2">"}' | sort -u > /tmp/authors-transform.txt
+
+git svn clone --trunk="%SVN_TRUNK_URL%" --no-metadata --ignore-paths="Library" --ignore-paths="FW" --ignore-paths="Common" --authors-file="./authors.txt" "%SVN_REPO_URL%" "%APPLICATION_NAME%"
+git svn clone --trunk="path/to/trunk" --no-metadata --authors-file="./authors.txt" "http://url.of.svn.repo" "GitRepoName"
+git svn clone --trunk="abc/def" --no-metadata --include-paths="abc/def/drivers/|abc/def/monitor/" --authors-file="./authors.txt" "http://url.of.svn.repo" "GitRepoName"
+
+git lfs migrate import --include="*.a" --include="*.zip" --include="*.tar" --include="*.gz" --include="*.gif" --include="*.png" --include="*.pdf" --include="*.lib" --include="*.elf" --include="*.loc" --include="*.lib" --include-ref=refs/heads/master
+
+git svn show-ignore -i trunk
+git svn show-ignore --id=origin/trunk
+git svn show-ignore > .gitignore
+git add .gitignore
+git commit -m 'Convert svn:ignore properties to .gitignore.'
+
+git branch -r
+git branch -a
+
+git branch -m trunk master
+
+svn proplist -v -R
+svn propget svn:externals -R http://url.of.repo/Branch
+
+git clone XYZ &> git_clone.file
+
+git config --list --show-origin
+git config --get <item>
+git config --global http.sslVerify false
+git config --global core.autocrlf false
+git config --global --unset credential.helper
+git config --system --unset credential.helper
+
+SVN Repo URL: file:///D:/Docs/SVN_to_GIT/Demo/SVN_sample_repo
+Clone command: git svn clone --trunk="reqd" --no-metadata --authors-file="./authors.txt" "file:///D/Docs/SVN_to_GIT/Demo/SVN_sample_repo" "git"
+
+# store ":PAT" in Base64
+MY_PAT="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+B64_PAT=$(echo -n ":$MY_PAT" | base64)
+# clone repo
+git -c http.extraHeader="Authorization: Basic ${B64_PAT}" clone https://url.of.git.repo
+
